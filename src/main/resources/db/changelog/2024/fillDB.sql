@@ -10,11 +10,15 @@ INSERT INTO training_type (id, training_type_name) VALUES
                                                        (2, 'STRENGTH'),
                                                        (3, 'FLEXIBILITY');
 
-INSERT INTO users (firstname, lastname, username, password, isactive) VALUES
-                                                                          ('John', 'Doe', 'john.doe', 'password1', TRUE),
-                                                                          ('Jane', 'Smith', 'jane.smith', 'password2', TRUE),
-                                                                          ('Eva', 'Adams', 'eva.adams', 'password5', TRUE),
-                                                                          ('Alice', 'Johnson', 'alice.johnson', 'password3', FALSE);
+INSERT INTO users (firstname, lastname, username, password, enabled) VALUES
+--password1
+('John', 'Doe', 'john.doe', '$2a$10$3JFTvofZ1cbSMcEe4PDED.091x12WgQlKDb0HgesR6/IYWoG026Bq', TRUE),
+--password2
+('Jane', 'Smith', 'jane.smith', '$2a$10$JXp0Y81qNXwgfw9.akeOcOyX5p4mgseEJO2Ih8uA73wcLFHd8KYNO', TRUE),
+--password3
+('Eva', 'Adams', 'eva.adams', '$2a$10$I.cdmi6/QCpM7Tc/aPmCKer8wpfyeQHfkMXJcvrkY6AQPc.JaLNK2', TRUE),
+--password4
+('Alice', 'Johnson', 'alice.johnson', '$2a$10$XJXWaCLIrKVtho./RWogpueDN59aGe57Ns0gFfeNPIGJlGXns4ne2', FALSE);
 
 INSERT INTO trainee (dateofbirth, id)
 VALUES
@@ -36,3 +40,10 @@ INSERT INTO address (apartmentnumber, buildingnumber, id, trainee_id, city, stre
 VALUES
     (101, 10, 1, 1, 'New York', 'Broadway'),
     (202, 20, 2, 2, 'Los Angeles', 'Sunset Boulevard');
+
+INSERT INTO authorities (username, authority)
+VALUES
+    ('john.doe', 'ROLE_ADMIN'),
+    ('jane.smith', 'ROLE_USER'),
+    ('eva.adams', 'ROLE_USER'),
+    ('alice.johnson', 'ROLE_USER');

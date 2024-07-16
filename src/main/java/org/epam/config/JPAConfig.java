@@ -42,9 +42,9 @@ public class JPAConfig {
   @Value("${hibernate.dialect}")
   private String dialect;
 
+
   @Bean
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
     final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
     em.setPackagesToScan("org.epam.entity");
@@ -58,7 +58,6 @@ public class JPAConfig {
   @Profile("dev")
   @Bean
   public DataSource dataSource() {
-
     final DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName(driverClassName);
     dataSource.setUrl(url);
@@ -70,7 +69,6 @@ public class JPAConfig {
 
   @Bean
   public PlatformTransactionManager transactionManager() {
-
     final JpaTransactionManager transactionManager = new JpaTransactionManager();
     transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
@@ -84,28 +82,10 @@ public class JPAConfig {
   }
 
   final Properties additionalProperties() {
-
     final Properties hibernateProperties = new Properties();
     hibernateProperties.setProperty("hibernate.hbm2ddl.auto", hbm2ddlAuto);
     hibernateProperties.setProperty("hibernate.dialect", dialect);
     hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", "false");
     return hibernateProperties;
-  }
-
-  @Bean
-  public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
-
-    DataSourceInitializer initializer = new DataSourceInitializer();
-    initializer.setDataSource(dataSource);
-    initializer.setDatabasePopulator(databasePopulator());
-    return initializer;
-  }
-
-  private ResourceDatabasePopulator databasePopulator() {
-
-    ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-    populator.addScript(
-        new ClassPathResource("fillDb.sql"));
-    return populator;
   }
 }
